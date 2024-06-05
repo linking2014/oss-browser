@@ -116,6 +116,41 @@
           <!-- <a href="" ng-if="item.isFolder!=true" ng-click="showPreview(item);$event.stopPropagation()">预览</a> -->
           <!-- <a href="" ng-if="item.isFolder==true" ng-click="goIn(currentBucket,item.path);$event.stopPropagation()">进入</a>
         | -->
+
+          <!--<span-->
+          <!--  ng-if="!item.isFolder && (item.storageClass!='Archive' || item.storageStatus==3)"-->
+          <!--&gt;-->
+          <!--  <a-->
+          <!--    href=""-->
+          <!--    ng-click="$event.stopPropagation()"-->
+          <!--  >-->
+          <!--    <i class="fa fa-link" aria-hidden="true" /></i>-->
+          <!--  </a>-->
+          <!--</span>-->
+
+          <span
+            ng-if="!item.isFolder && (item.storageClass!='Archive' || item.storageStatus==3)"
+          >
+            <input
+              type="text"
+              style="display:none;"
+              ng-attr-id="{{item._id}}"
+              ng-model="item.url"
+              class="input-md form-control"
+            />
+            <a
+              href=""
+              ng-click="$event.stopPropagation()"
+              clipboard-button
+              target="'#' + item._id"
+            >
+              <i class="fa fa-link" aria-hidden="true" /></i>
+              <!-- 复制地址 -->
+              {{'copyAddress'|translate}}
+            </a>
+            |
+          </span>
+
           <span
             ng-if="!item.isFolder && (item.storageClass!='Archive' || item.storageStatus==3)"
           >
@@ -124,6 +159,7 @@
               ng-click="showAddress(item);$event.stopPropagation()"
               class="text-info"
             >
+              <i class="fa fa-info" aria-hidden="true" /></i>
               <!-- 获取地址 -->
               {{'getAddress'|translate}}
             </a>

@@ -648,6 +648,16 @@ angular
                   function(result) {
                     const arr = result.data;
 
+                    console.log('arr', arr)
+
+                    arr.forEach(item => {
+                      if (!item.isFolder) {
+                        item._id = 'id-' + item.etag.replace(/"/g, '')
+                      }
+                    })
+
+                    console.log('arr', arr)
+
                     // eslint-disable-next-line no-unused-expressions
                     settingsSvs.showImageSnapshot.get() == 1
                       ? signPicURL(info, arr)
@@ -1390,6 +1400,7 @@ angular
         }
         // 地址
         function showAddress(item) {
+          console.log(item)
           $modal.open({
             templateUrl: 'main/files/modals/get-address.html',
             controller: 'getAddressModalCtrl',

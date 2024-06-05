@@ -16,16 +16,23 @@ angular.module('web').directive('clipboardButton', [
         success: '&'
       },
       link: function link(scope, ele) {
-        var d = new Clipboard(ele[0], {
-          text: function() {
-            return $(scope.target).val();
-          },
-          action: scope.action || 'copy'
-        });
 
-        d.on('success', function() {
-          Toast.success(T('copy.successfully')); // '复制成功'
-        });
+        scope.$watch('target', function(newVal) {
+          if (newVal) {
+            var d = new Clipboard(ele[0], {
+              text: function() {
+                // debugger
+                return $(scope.target).val();
+              },
+              action: scope.action || 'copy'
+            });
+
+            d.on('success', function() {
+              Toast.success(T('copy.successfully')); // '复制成功'
+            });
+          }
+        })
+
       }
     };
   }
